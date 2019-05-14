@@ -17,6 +17,8 @@ class Api::ContactsController < ApplicationController
       last_name: params[:last_name],
       email: params[:email],
       phone_number: params[:phone_number],
+      latitude: Geocoder.coordinates(params[:address])[0],
+      longitude: Geocoder.coordinates(params[:address])[1],
       bio: params[:bio]
       )
     @contact.save
@@ -31,6 +33,8 @@ class Api::ContactsController < ApplicationController
     @contact.email = params[:email] || @contact.email
     @contact.phone_number = params[:phone_number] || @contact.phone_number
     @contact.bio = params[:bio] || @contact.bio
+    @contact.latitude = Geocoder.coordinates(params[:address])[0] || @contact.latitude
+    @contact.longitude = Geocoder.coordinates(params[:address])[1] || @contact.longitude
         
 
     @contact.save
