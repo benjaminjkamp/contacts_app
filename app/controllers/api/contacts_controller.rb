@@ -1,13 +1,24 @@
 class Api::ContactsController < ApplicationController
 
+  before_action :authenticate_user
+
   def index
-    @contacts = Contact.all
+    @contacts = current_user.contacts
+    if params[:search]
+      @contacts = @contacts.where("first_name iLike ? OR last_name iLike ? OR phone_number iLike ? OR email iLike ?" , "%#{params[:search]}%",  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",)
+    end
     render 'index.json.jbuilder' 
   end
 
   def show
+    
     @contact = Contact.find(params[:id].to_i)
-    render 'show.json.jbuilder'
+
+    if @contact.user_id == current_user.id
+      render 'show.json.jbuilder'
+    else
+      render json:{}
+    end
   end
 
   def create
@@ -19,10 +30,14 @@ class Api::ContactsController < ApplicationController
       phone_number: params[:phone_number],
       latitude: Geocoder.coordinates(params[:address])[0],
       longitude: Geocoder.coordinates(params[:address])[1],
-      bio: params[:bio]
+      bio: params[:bio],
+      user_id: current_user.id
       )
-    @contact.save
-    render 'show.json.jbuilder'
+    if @contact.save
+      render 'show.json.jbuilder'
+    else
+      render json:{errors: @contact.errors.full_messages}, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -37,8 +52,11 @@ class Api::ContactsController < ApplicationController
     @contact.longitude = Geocoder.coordinates(params[:address])[1] || @contact.longitude
         
 
-    @contact.save
-    render 'show.json.jbuilder'
+    if @contact.save
+      render 'show.json.jbuilder'
+    else
+      render json:{errors: @contact.errors.full_messages}, status: :unprocessable_entity
+    end
     
   end
 

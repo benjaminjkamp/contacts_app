@@ -14,3 +14,5 @@ json.formatted do
   json.friendly_created_at contact.friendly_created_at
   json.friendly_updated_at contact.friendly_updated_at
 end
+
+json.user contact.user.name
