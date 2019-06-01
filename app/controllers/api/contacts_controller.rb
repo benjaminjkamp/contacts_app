@@ -7,6 +7,10 @@ class Api::ContactsController < ApplicationController
     if params[:search]
       @contacts = @contacts.where("first_name iLike ? OR last_name iLike ? OR phone_number iLike ? OR email iLike ?" , "%#{params[:search]}%",  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",)
     end
+    if params[:group]
+      @contacts = @contacts.where(contact.groups[])
+
+
     render 'index.json.jbuilder' 
   end
 

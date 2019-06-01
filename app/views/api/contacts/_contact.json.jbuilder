@@ -1,3 +1,4 @@
+
 json.first_name contact.first_name
 json.middle_name contact.middle_name
 json.last_name contact.last_name
@@ -6,6 +7,7 @@ json.phone_number contact.phone_number
 json.latitude contact.latitude
 json.longitude contact.longitude
 json.bio contact.bio
+json.groups contact.groups
 json.created_at contact.created_at
 json.updated_at contact.updated_at
 

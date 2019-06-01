@@ -1,0 +1,15 @@
+<form action="/contacts/<%= @contact.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  First Name:   <input type="text" name="first_name" value="<%= @contact.first_name %>"><br>
+  Middle Name:   <input type="text" name="middle_name" value="<%= @contact.middle_name %>"><br>
+  Last Name:    <input type="text" name="last_name" value="<%= @contact.last_name %>"><br>
+  Email:        <input type="text" name="email" value="<%= @contact.email %>"><br>
+  Phone Number: <input type="text" name="phone_number" value="<%= @contact.phone_number %>"><br>
+  Bio:          <input type="text" name="bio" value="<%= @contact.bio %>"><br>
+  User:         
+  <select name="user_id">
+    <option value=1 type="number">bk</option>
+  </select><br>
+  <h3><input type="submit" value="Update Contact"></h3>
+  <h3><a href="/contacts/<%= @contact.id %>" data-method="delete">Delete Contact</a>
+</form>

@@ -1,0 +1,8 @@
+<h1><%= "#{@contact.first_name} #{@contact.middle_name} #{@contact.last_name}" %></h1>
+
+<h3>Email:   <%= @contact.email %></h3>
+<h3>Phone Number:   <%= @contact.phone_number %></h3>
+<h3>Bio:  <%= @contact.bio %></h3>
+
+<h2><a href="/contacts/<%= @contact.id %>/edit">Edit Contact Info</a></h2>
+<h2><a href="/contacts">Back to All Contacts</a></h2>
